@@ -1,0 +1,61 @@
+#:kivy 1.0
+
+<DayColumn@Label>:
+    text_size: self.size
+    halign: 'left'
+    valign: 'middle'
+    size_hint_y: 0.7
+    canvas.before:
+        Color:
+            rgba: 0.6,0.6,0.6,1.
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<Separator>:
+    size_hint_y: 0.001
+
+
+<Controller>:
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        DayColumn:
+            text: 'Monday'
+
+        Separator:
+            width: root.width
+
+        DayColumn:
+            text: 'Tuesday'
+
+        Separator:
+            width: root.width
+
+        DayColumn:
+            text: 'Wednesday'
+
+        Separator:
+            width: root.width
+
+        DayColumn:
+            text: 'Thursday'
+
+        Separator:
+            width: root.width
+
+        DayColumn:
+            text: 'Friday'
+
+        Separator:
+            width: root.width
+
+        DayColumn:
+            text: 'Saturday'
+
+        Separator:
+            width: root.width
+
+        DayColumn:
+            text: 'Sunday'
