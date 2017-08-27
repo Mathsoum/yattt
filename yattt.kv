@@ -1,18 +1,32 @@
 #:kivy 1.0
 
-<DayColumn@Label>:
-    text_size: self.size
-    halign: 'left'
-    valign: 'middle'
+<DayColumn@BoxLayout>:
     size_hint_y: 0.7
-    canvas.before:
-        Color:
-            rgba: 0.6,0.6,0.6,1.
-        Rectangle:
-            pos: self.pos
-            size: self.size
+    orientation: 'horizontal'
+    text: ''
 
-<Separator>:
+    Label:
+        text_size: self.size
+        halign: 'left'
+        valign: 'middle'
+        text: root.text
+        canvas.before:
+            Color:
+                rgba: 0.6,0.6,0.6,1.
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+    Chronology:
+        canvas.before:
+            Color:
+                rgba: 0.4, 0.8, 0.4, 1.
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+
+<DaySeparator>:
     size_hint_y: 0.001
 
 
@@ -24,37 +38,37 @@
         DayColumn:
             text: 'Monday'
 
-        Separator:
+        DaySeparator:
             width: root.width
 
         DayColumn:
             text: 'Tuesday'
 
-        Separator:
+        DaySeparator:
             width: root.width
 
         DayColumn:
             text: 'Wednesday'
 
-        Separator:
+        DaySeparator:
             width: root.width
 
         DayColumn:
             text: 'Thursday'
 
-        Separator:
+        DaySeparator:
             width: root.width
 
         DayColumn:
             text: 'Friday'
 
-        Separator:
+        DaySeparator:
             width: root.width
 
         DayColumn:
             text: 'Saturday'
 
-        Separator:
+        DaySeparator:
             width: root.width
 
         DayColumn:

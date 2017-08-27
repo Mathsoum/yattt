@@ -10,9 +10,46 @@ class Controller(FloatLayout):
     pass
 
 
-class Separator(Widget):
+class Chronology(Widget):
     def __init__(self, **kwargs):
-        super(Separator, self).__init__(**kwargs)
+        super(Chronology, self).__init__(**kwargs)
+        self.color = None
+        self.left_line = None
+        self.right_line = None
+        self.draw()
+
+    def draw(self):
+        with self.canvas:
+            line_kwargs = {
+                'points': [],
+                'width': 1,
+            }
+            self.color = Color(rgba=(1, 0, 0, 1.))
+
+            self.left_line = Line(**line_kwargs)
+            self.right_line = Line(**line_kwargs)
+
+    def update_lines(self):
+        self.left_line.points = [
+            self.x, self.y,
+            self.x, self.y + self.height,
+        ]
+
+        self.right_line.points = [
+            self.x + self.width, self.y,
+            self.x + self.width, self.y + self.height,
+        ]
+
+    def on_pos(self, instance, value):
+        self.update_lines()
+
+    def on_size(self, instance, value):
+        self.update_lines()
+
+
+class DaySeparator(Widget):
+    def __init__(self, **kwargs):
+        super(DaySeparator, self).__init__(**kwargs)
         self.color = None
         self.line = None
         self.draw_line()
@@ -40,4 +77,3 @@ class Separator(Widget):
 
     def on_size(self, instance, value):
         self.update_line()
-
