@@ -11,11 +11,12 @@ class Controller(FloatLayout):
 
 
 class Chronology(Widget):
+    TIME_INTERVAL_COUNT = 24 * 2
+
     def __init__(self, **kwargs):
         super(Chronology, self).__init__(**kwargs)
         self.color = None
-        self.left_line = None
-        self.right_line = None
+        self.time_lines = []
         self.draw()
 
     def draw(self):
@@ -26,19 +27,22 @@ class Chronology(Widget):
             }
             self.color = Color(rgba=(1, 0, 0, 1.))
 
-            self.left_line = Line(**line_kwargs)
-            self.right_line = Line(**line_kwargs)
+            self.time_lines = [Line(**line_kwargs) for i in range(self.TIME_INTERVAL_COUNT + 1)]
 
     def update_lines(self):
-        self.left_line.points = [
-            self.x, self.y,
-            self.x, self.y + self.height,
-        ]
-
-        self.right_line.points = [
-            self.x + self.width, self.y,
-            self.x + self.width, self.y + self.height,
-        ]
+        margin_hours_height = self.height * 0.1
+        margin_halves_height = self.height * 0.4
+        for i in range(self.TIME_INTERVAL_COUNT + 1):
+            if (i % 2) == 0:
+                self.time_lines[i].points = [
+                    self.x + (((self.width * 0.05) / 2) + (self.width * 0.95 * i) / self.TIME_INTERVAL_COUNT), self.y + margin_hours_height,
+                    self.x + (((self.width * 0.05) / 2) + (self.width * 0.95 * i) / self.TIME_INTERVAL_COUNT), self.y + self.height - margin_hours_height,
+                ]
+            else:
+                self.time_lines[i].points = [
+                    self.x + (((self.width * 0.05) / 2) + (self.width * 0.95 * i) / self.TIME_INTERVAL_COUNT), self.y + margin_halves_height,
+                    self.x + (((self.width * 0.05) / 2) + (self.width * 0.95 * i) / self.TIME_INTERVAL_COUNT), self.y + self.height - margin_halves_height,
+                ]
 
     def on_pos(self, instance, value):
         self.update_lines()
